@@ -4,7 +4,7 @@
   "private": true,
   "description": "Aplicativo de gestão de alunos e aulas para autoescolas",
   "scripts": {
-    "build:android": "node scripts/prepare-android.js && cap sync android"
+    "build:android": "node scripts/prepare-android.js"
   },
   "dependencies": {
     "@capacitor/android": "6.2.1",
