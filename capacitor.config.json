@@ -1,0 +1,7 @@
+{
+  "appId": "br.com.autogestorcfc.app",
+  "appName": "AutoGestor CFC",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "backgroundColor": "#0b0d10"
+}
