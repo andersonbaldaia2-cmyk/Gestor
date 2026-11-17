@@ -1,0 +1,15 @@
+{
+  "name": "AutoGestor CFC — Gestão de Alunos",
+  "short_name": "AutoGestor",
+  "description": "Controle local de alunos, aulas e frequência para autoescolas.",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b0d10",
+  "theme_color": "#0b0d10",
+  "icons": [
+    { "src": "./icone.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
