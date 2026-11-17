@@ -8,24 +8,28 @@ Aplicativo web instalável (PWA) para cadastro de alunos e controle de aulas de 
 - Registro de aulas: agendada, realizada, falta, cancelada e reagendada.
 - Contadores de presenças, faltas e aulas restantes.
 - Armazenamento local com IndexedDB.
-- Backup e restauração dos dados.
-- Interface responsiva em português brasileiro e tema escuro.
+- Backup e restauração dos dados em arquivo JSON.
+- Interface responsiva em português brasileiro e tema escuro minimalista.
 - Suporte offline após o primeiro carregamento.
 
-## Publicação
-O projeto foi preparado para GitHub Pages. Em Settings → Pages, escolha Deploy from a branch, branch main e pasta /(root).
+## Arquivos
+- `index.html`: aplicativo completo (estrutura, aparência e funcionalidades).
+- `sw.js`: cache e funcionamento offline.
+- `manifest.webmanifest`: configuração para instalação como aplicativo.
+- `icone.svg`: ícone do aplicativo.
+
+## Publicação no GitHub Pages
+1. Abra Settings → Pages.
+2. Em Build and deployment, escolha Deploy from a branch.
+3. Selecione a branch `main` e a pasta `/(root)` e salve.
+4. Aguarde o GitHub publicar o endereço exibido na mesma página.
+
+Se o repositório estiver privado e sua conta/plano não permitir Pages privado, altere a visibilidade do repositório para público em Settings → General → Danger Zone → Change repository visibility.
 
 ## Instalação no Android
 Abra o endereço publicado no Chrome e escolha Instalar aplicativo ou Adicionar à tela inicial.
 
 ## Importante sobre os dados
-Os cadastros ficam no armazenamento local do navegador/aparelho. Não são enviados ao GitHub. Faça backups regulares. Limpar os dados do navegador ou desinstalar o aplicativo pode apagar os registros locais.
+Os cadastros ficam no armazenamento local do navegador/aparelho usando IndexedDB. Não são enviados ao GitHub. Fechar o aplicativo não apaga os dados. Limpar os dados do navegador, remover o armazenamento do site ou perder o aparelho pode apagar os registros locais. Faça backups regulares e guarde o arquivo em local seguro.
 
-## Arquivos
-- index.html: estrutura da aplicação.
-- styles.css: visual e responsividade.
-- app.js: telas e funcionalidades.
-- db.js: banco de dados local IndexedDB.
-- sw.js: cache e funcionamento offline.
-- manifest.webmanifest: configuração PWA.
-- icone.svg, icone-192.png, icone-512.png: ícones.
+Todos os textos e telas do aplicativo estão em português brasileiro.
