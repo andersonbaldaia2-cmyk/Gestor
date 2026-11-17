@@ -1,0 +1,16 @@
+{
+  "name": "autogestor-cfc",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Aplicativo de gestão de alunos e aulas para autoescolas",
+  "scripts": {
+    "build:android": "node scripts/prepare-android.js && cap sync android"
+  },
+  "dependencies": {
+    "@capacitor/android": "6.2.1",
+    "@capacitor/core": "6.2.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "6.2.1"
+  }
+}
