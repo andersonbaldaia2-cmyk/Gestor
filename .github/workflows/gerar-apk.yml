@@ -8,10 +8,14 @@ on:
       - 'manifest.webmanifest'
       - 'sw.js'
       - 'icone.svg'
+      - 'icone-foreground.svg'
       - 'package.json'
       - 'capacitor.config.json'
       - 'scripts/**'
       - '.github/workflows/gerar-apk.yml'
+
+permissions:
+  contents: read
 
 jobs:
   android:
@@ -19,54 +23,75 @@ jobs:
     steps:
       - name: Baixar código
         uses: actions/checkout@v4
+
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
+
       - name: Configurar Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
+
       - name: Instalar dependências
-        run: npm install
-      - name: Preparar arquivos
+        run: npm install --no-audit --no-fund
+
+      - name: Verificar sintaxe e arquivos
+        run: npm run check:app
+
+      - name: Preparar arquivos web
         run: npm run build:android
+
       - name: Criar projeto Android
         run: npx cap add android
-      - name: Aplicar ícone do aplicativo
+
+      - name: Gerar ícones Android (legado e adaptativo)
         run: |
-          sudo apt-get update && sudo apt-get install -y imagemagick
-          mkdir -p android/app/src/main/res/mipmap-mdpi android/app/src/main/res/mipmap-hdpi android/app/src/main/res/mipmap-xhdpi android/app/src/main/res/mipmap-xxhdpi android/app/src/main/res/mipmap-xxxhdpi android/app/src/main/res/mipmap-anydpi-v26
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+          RES=android/app/src/main/res
+          mkdir -p "$RES/mipmap-mdpi" "$RES/mipmap-hdpi" "$RES/mipmap-xhdpi" "$RES/mipmap-xxhdpi" "$RES/mipmap-xxxhdpi" "$RES/mipmap-anydpi-v26" "$RES/drawable-nodpi" "$RES/values"
           for spec in "mdpi 48" "hdpi 72" "xhdpi 96" "xxhdpi 144" "xxxhdpi 192"; do
             set -- $spec
-            convert -background none icone.svg -resize ${2}x${2} android/app/src/main/res/mipmap-${1}/ic_launcher.png
-            cp android/app/src/main/res/mipmap-${1}/ic_launcher.png android/app/src/main/res/mipmap-${1}/ic_launcher_round.png
+            convert -background none -density 384 icone.svg -resize "${2}x${2}!" "$RES/mipmap-${1}/ic_launcher.png"
+            cp "$RES/mipmap-${1}/ic_launcher.png" "$RES/mipmap-${1}/ic_launcher_round.png"
           done
-          convert -background none icone.svg -resize 432x432 android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png
-          mkdir -p android/app/src/main/res/values
-          cat > android/app/src/main/res/values/ic_launcher_background.xml <<'EOF'
+          convert -background none -density 384 icone-foreground.svg -resize 432x432! "$RES/drawable-nodpi/ic_launcher_foreground.png"
+          cat > "$RES/values/ic_launcher_background.xml" <<'EOF'
           <resources>
-            <color name="ic_launcher_background">#09060d</color>
+            <color name="ic_launcher_background">#090611</color>
           </resources>
           EOF
-          cat > android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml <<'EOF'
+          cat > "$RES/mipmap-anydpi-v26/ic_launcher.xml" <<'EOF'
           <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
             <background android:drawable="@color/ic_launcher_background"/>
-            <foreground android:drawable="@mipmap/ic_launcher_foreground"/>
+            <foreground android:drawable="@drawable/ic_launcher_foreground"/>
           </adaptive-icon>
           EOF
-          cp android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml
-      - name: Sincronizar aplicativo
+          cp "$RES/mipmap-anydpi-v26/ic_launcher.xml" "$RES/mipmap-anydpi-v26/ic_launcher_round.xml"
+
+      - name: Sincronizar Capacitor
         run: npx cap sync android
-      - name: Compilar APK
+
+      - name: Compilar APK de depuração
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug
+          ./gradlew --no-daemon clean assembleDebug
+
+      - name: Calcular SHA-256
+        run: |
+          cd android/app/build/outputs/apk/debug
+          sha256sum app-debug.apk > app-debug.apk.sha256
+
       - name: Disponibilizar APK
         uses: actions/upload-artifact@v4
         with:
-          name: Painel-APK
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          name: Painel-APK-atualizado
+          path: |
+            android/app/build/outputs/apk/debug/app-debug.apk
+            android/app/build/outputs/apk/debug/app-debug.apk.sha256
           retention-days: 30
+          if-no-files-found: error

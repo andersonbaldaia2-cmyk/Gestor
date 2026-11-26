@@ -1,7 +1,7 @@
 {
   "name": "Painel",
   "short_name": "Painel",
-  "description": "Organize pessoas, atividades e registros.",
+  "description": "Organize pessoas, atividades e registros com segurança.",
   "lang": "pt-BR",
   "start_url": "./",
   "scope": "./",
@@ -10,6 +10,11 @@
   "background_color": "#090611",
   "theme_color": "#090611",
   "icons": [
-    { "src": "./icone.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+    {
+      "src": "./icone.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
   ]
 }
