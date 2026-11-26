@@ -47,18 +47,21 @@ jobs:
       - name: Criar projeto Android
         run: npx cap add android
 
-      - name: Gerar ícones Android (legado e adaptativo)
+      - name: Sincronizar Capacitor
+        run: npx cap sync android
+
+      - name: Gerar ícones Android com suporte a SVG
         run: |
           sudo apt-get update
-          sudo apt-get install -y imagemagick
+          sudo apt-get install -y librsvg2-bin
           RES=android/app/src/main/res
           mkdir -p "$RES/mipmap-mdpi" "$RES/mipmap-hdpi" "$RES/mipmap-xhdpi" "$RES/mipmap-xxhdpi" "$RES/mipmap-xxxhdpi" "$RES/mipmap-anydpi-v26" "$RES/drawable-nodpi" "$RES/values"
           for spec in "mdpi 48" "hdpi 72" "xhdpi 96" "xxhdpi 144" "xxxhdpi 192"; do
             set -- $spec
-            convert -background none -density 384 icone.svg -resize "${2}x${2}!" "$RES/mipmap-${1}/ic_launcher.png"
+            rsvg-convert --width "${2}" --height "${2}" icone.svg > "$RES/mipmap-${1}/ic_launcher.png"
             cp "$RES/mipmap-${1}/ic_launcher.png" "$RES/mipmap-${1}/ic_launcher_round.png"
           done
-          convert -background none -density 384 icone-foreground.svg -resize 432x432! "$RES/drawable-nodpi/ic_launcher_foreground.png"
+          rsvg-convert --width 432 --height 432 icone-foreground.svg > "$RES/drawable-nodpi/painel_launcher_foreground.png"
           cat > "$RES/values/ic_launcher_background.xml" <<'EOF'
           <resources>
             <color name="ic_launcher_background">#090611</color>
@@ -67,13 +70,10 @@ jobs:
           cat > "$RES/mipmap-anydpi-v26/ic_launcher.xml" <<'EOF'
           <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
             <background android:drawable="@color/ic_launcher_background"/>
-            <foreground android:drawable="@drawable/ic_launcher_foreground"/>
+            <foreground android:drawable="@drawable/painel_launcher_foreground"/>
           </adaptive-icon>
           EOF
           cp "$RES/mipmap-anydpi-v26/ic_launcher.xml" "$RES/mipmap-anydpi-v26/ic_launcher_round.xml"
-
-      - name: Sincronizar Capacitor
-        run: npx cap sync android
 
       - name: Compilar APK de depuração
         run: |

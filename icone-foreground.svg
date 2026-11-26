@@ -8,7 +8,7 @@
   <linearGradient id="bladeC" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a843e9"/><stop offset=".38" stop-color="#f0d7ff"/><stop offset=".85" stop-color="#fff"/><stop offset="1" stop-color="#d38bff"/></linearGradient>
   <linearGradient id="bladeD" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#572070"/><stop offset=".5" stop-color="#bf70f3"/><stop offset="1" stop-color="#fff"/></linearGradient>
 </defs>
-<g transform="translate(78 78) scale(.695)"><g id="mark">
+<g transform="translate(66 66) scale(.74)"><g id="mark">
   <path d="M72 256 C132 218 188 168 240 145 C314 113 374 119 428 42 C417 117 399 177 350 211 C293 250 184 244 72 256 Z" fill="url(#bladeA)"/>
   <path d="M428 42 C410 111 393 176 399 240 C405 289 438 314 480 334 C432 326 389 320 365 291 C334 254 357 159 428 42 Z" fill="url(#bladeB)"/>
   <path d="M480 334 C398 350 316 367 250 399 C200 423 164 460 145 488 C162 420 183 361 228 334 C283 301 379 322 480 334 Z" fill="url(#bladeC)"/>
