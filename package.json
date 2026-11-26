@@ -1,8 +1,8 @@
 {
-  "name": "autogestor-cfc",
-  "version": "1.0.0",
+  "name": "painel-mobile",
+  "version": "2.0.0",
   "private": true,
-  "description": "Aplicativo de gestão de alunos e aulas para autoescolas",
+  "description": "Aplicativo de organização pessoal de pessoas e registros",
   "scripts": {
     "build:android": "node scripts/prepare-android.js"
   },

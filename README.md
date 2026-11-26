@@ -1,35 +1,20 @@
-# AutoGestor CFC
+# Painel
 
-Aplicativo web instalável (PWA) para cadastro de alunos e controle de aulas de uma autoescola.
+Aplicativo Android e web para organizar pessoas, atividades e registros, com interface compacta e armazenamento local.
 
 ## Recursos
-- Cadastro, edição, pesquisa e exclusão de alunos.
-- Ficha individual com dados e histórico.
-- Registro de aulas: agendada, realizada, falta, cancelada e reagendada.
-- Contadores de presenças, faltas e aulas restantes.
-- Armazenamento local com IndexedDB.
-- Backup e restauração dos dados em arquivo JSON.
-- Interface responsiva em português brasileiro e tema escuro minimalista.
-- Suporte offline após o primeiro carregamento.
+- Painel com indicadores e atalhos.
+- Cadastro, edição, pesquisa e exclusão de pessoas.
+- Histórico de registros com data, horário, situação, duração, responsável, tipo e notas.
+- Indicadores de itens concluídos, pendentes e ausências.
+- Backup e restauração em JSON.
+- Banco local IndexedDB e funcionamento offline após o primeiro carregamento.
+- Interface responsiva com navegação por ícones e tema escuro roxo/magenta.
 
-## Arquivos
-- `index.html`: aplicativo completo (estrutura, aparência e funcionalidades).
-- `sw.js`: cache e funcionamento offline.
-- `manifest.webmanifest`: configuração para instalação como aplicativo.
-- `icone.svg`: ícone do aplicativo.
+## Android
+O projeto usa Capacitor 6. O workflow do GitHub Actions gera um APK de depuração quando há alterações nos arquivos do aplicativo ou quando executado manualmente.
 
-## Publicação no GitHub Pages
-1. Abra Settings → Pages.
-2. Em Build and deployment, escolha Deploy from a branch.
-3. Selecione a branch `main` e a pasta `/(root)` e salve.
-4. Aguarde o GitHub publicar o endereço exibido na mesma página.
+## Dados
+Os registros permanecem no armazenamento local do aparelho. Faça backups regulares e guarde os arquivos em local seguro.
 
-Se o repositório estiver privado e sua conta/plano não permitir Pages privado, altere a visibilidade do repositório para público em Settings → General → Danger Zone → Change repository visibility.
-
-## Instalação no Android
-Abra o endereço publicado no Chrome e escolha Instalar aplicativo ou Adicionar à tela inicial.
-
-## Importante sobre os dados
-Os cadastros ficam no armazenamento local do navegador/aparelho usando IndexedDB. Não são enviados ao GitHub. Fechar o aplicativo não apaga os dados. Limpar os dados do navegador, remover o armazenamento do site ou perder o aparelho pode apagar os registros locais. Faça backups regulares e guarde o arquivo em local seguro.
-
-Todos os textos e telas do aplicativo estão em português brasileiro.
+O aplicativo mantém o banco IndexedDB anterior para preservar registros já existentes durante a atualização.

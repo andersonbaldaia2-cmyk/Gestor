@@ -1,5 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-<rect width="512" height="512" rx="116" fill="#0b0d10"/>
-<rect x="42" y="42" width="428" height="428" rx="92" fill="#c9d9ff"/>
-<path d="M256 111 121 397h74l61-136 61 136h74L256 111Z" fill="#111824"/>
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a451ff"/><stop offset=".58" stop-color="#6818a5"/><stop offset="1" stop-color="#ed3fba"/></linearGradient><filter id="s"><feGaussianBlur stdDeviation="13"/></filter></defs>
+<rect width="512" height="512" rx="116" fill="#090611"/>
+<rect x="34" y="34" width="444" height="444" rx="104" fill="url(#g)"/>
+<circle cx="256" cy="256" r="116" fill="#fff" opacity=".12" filter="url(#s)"/>
+<path d="M256 115 397 256 256 397 115 256 256 115Z" fill="none" stroke="#fff" stroke-width="25" stroke-linejoin="round"/>
+<path d="M256 190 331 256 256 322 181 256 256 190Z" fill="none" stroke="#fff" stroke-width="18" stroke-linejoin="round" opacity=".86"/>
 </svg>
