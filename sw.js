@@ -1,4 +1,4 @@
-const CACHE = 'painel-shell-v2';
+const CACHE = 'painel-shell-v3';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icone.svg'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(FILES)).then(() => self.skipWaiting()));
